@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HandScript - Handwritten Notes Digitizer</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span>✍️</span>
+      <span>HandScript</span>
+    </div>
+    <div class="nav-links">Emerson University Multan</div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Handwritten Notes <span class="highlight">Digitizer</span></h1>
+    <p>Upload handwritten notes and convert them into editable digital text using AI-powered OCR technology.</p>
+  </div>
+
+  <div class="container">
+
+    <!-- Upload Card -->
+    <div class="card">
+      <div class="card-header">
+        <h2>📤 Upload Your Note</h2>
+        <p>Supported formats: JPG, PNG, JPEG</p>
+      </div>
+
+      <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">🖼️</div>
+        <p class="upload-text">Click to upload your handwritten note</p>
+        <p class="upload-subtext">High quality image recommended for better accuracy</p>
+        <br>
+        <label for="imageInput" style="background:#3b82f6; color:white; padding:10px 20px; border-radius:8px; cursor:pointer; font-size:0.95rem;">
+          📂 Browse File
+        </label>
+        <input type="file" id="imageInput" accept="image/*" style="display:none;">
+      </div>
+
+      <img id="preview" src="" alt="Preview" style="display:none; max-width:100%; margin-top:15px; border-radius:10px;">
+      <p id="fileName" class="file-name"></p>
+
+      <button id="convertBtn" class="btn-primary" onclick="convertImage()" disabled>
+        ⚡ Extract Text Now
+      </button>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" class="loading-card" style="display:none;">
+      <div class="spinner"></div>
+      <p>Processing your image with OCR...</p>
+      <p class="loading-sub">This may take a few seconds</p>
+    </div>
+
+    <!-- Result Card -->
+    <div id="resultBox" class="card" style="display:none;">
+      <div class="card-header">
+        <h2>✅ Extracted Text</h2>
+        <p>Review and edit the text below</p>
+      </div>
+
+      <div id="subjectBox" style="margin-bottom:15px;"></div>
+
+      <div class="word-count">
+        <div class="count-item">
+          <div class="count-num" id="wordCount">0</div>
+          <div class="count-label">Words</div>
+        </div>
+        <div class="count-item">
+          <div class="count-num" id="charCount">0</div>
+          <div class="count-label">Characters</div>
+        </div>
+        <div class="count-item">
+          <div class="count-num" id="lineCount">0</div>
+          <div class="count-label">Lines</div>
+        </div>
+      </div>
+
+      <textarea id="resultText" rows="10" placeholder="Extracted text will appear here..." oninput="updateCounts()"></textarea>
+
+      <div id="summaryBox" class="feature-card" style="margin-top:15px; display:none;">
+        <h3>📝 Auto Summary</h3>
+        <p id="summaryText"></p>
+      </div>
+
+      <div id="flashcardsBox" style="display:none;">
+        <div class="card-header" style="margin-top:20px;">
+          <h2>🃏 Study Flashcards</h2>
+          <p>Click on a card to reveal the answer</p>
+        </div>
+        <div class="flashcards-container" id="flashcardsList"></div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-secondary" onclick="copyText()">📋 Copy</button>
+        <button class="btn-secondary" onclick="downloadText()">⬇️ Download TXT</button>
+        <button class="btn-secondary" onclick="generateSummary()">📝 Summary</button>
+        <button class="btn-secondary" onclick="generateFlashcards()">🃏 Flashcards</button>
+        <button class="btn-secondary" onclick="clearAll()">🗑️ Clear</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">📄</div>
+        <div class="stat-number" id="totalNotes">0</div>
+        <div class="stat-label">Total Notes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <div class="stat-number">OCR</div>
+        <div class="stat-label">Technology</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-number">AI</div>
+        <div class="stat-label">Powered</div>
+      </div>
+    </div>
+
+    <!-- Previous Notes -->
+    <div class="card">
+      <div class="card-header">
+        <h2>📚 Previous Notes</h2>
+      </div>
+      <input type="text" id="searchInput" placeholder="🔍 Search notes..." oninput="searchNotes()" class="search-input">
+      <div id="notesList" style="margin-top:15px;">
+        <p class="empty-msg">No notes yet. Upload your first note!</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>✍️ HandScript — Handwritten Notes Digitizer</p>
+    <p>Emerson University Multan | Faculty of Computing and Emerging Technologies</p>
+    <p>Muhammad Shahzad Sajir & Muhammad Abdullah | Supervisor: Dr. Inam Illahi</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
